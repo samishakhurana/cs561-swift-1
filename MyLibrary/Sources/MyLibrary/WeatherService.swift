@@ -6,7 +6,7 @@ public protocol WeatherService {
 
 public class WeatherServiceImpl: WeatherService {
     private let baseUrl: String
-    private let path = "/data/2.5/weather?q=corvallis&units=imperial&appid=4f91415efb1608ea7b9535fa9948955f"
+    private let path = "/data/2.5/weather"
     
     public init(baseUrl: String = "https://api.openweathermap.org") {
         self.baseUrl = baseUrl

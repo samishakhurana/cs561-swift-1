@@ -3,35 +3,18 @@ import MyLibrary
 
 final class WeatherServiceTests: XCTestCase {
     
-    func testweatherSeriveTest_canGetTemperature() async throws {
+    func testweatherSeriveTest_SuccessCase() async throws {
         // Given
-        let temperatureToBeReturned = 38.9
-        let weatherServiceMockBaseUrl = "http://localhost:3000/"
-        let weatherSerivce = WeatherServiceImpl(baseUrl: weatherServiceMockBaseUrl)
+        let returnedVal = 10
+        let localPath = "http://127.0.0.1:3000/"
+        let weatherSerivce = WeatherServiceImpl(baseUrl: localPath)
         
         // When
         let temperature = try await weatherSerivce.getTemperature()
+        print(temperature)
         
         // Then
         XCTAssertNotNil(temperature)
-        XCTAssertEqual(temperature, Int(temperatureToBeReturned))
+        XCTAssertEqual(temperature, Int(returnedVal))
     }
-    
-//    func testweatherSeriveTest_failedGetTemperature() async throws {
-//        // Given
-//        let weatherServiceMockBaseUrl = "http://127.0.0.1:5000"
-//        let weatherSerivce = WeatherServiceImpl(baseUrl: weatherServiceMockBaseUrl)
-//        var isErrorReturned: Bool
-//
-//        // When
-//        do {
-//            let temperature = try await weatherSerivce.getTemperature()
-//            isErrorReturned = false
-//        } catch {
-//            isErrorReturned = true
-//        }
-//
-//        // Then
-//        XCTAssertTrue(isErrorReturned)
-//    }
 }
