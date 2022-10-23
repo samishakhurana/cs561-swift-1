@@ -50,7 +50,7 @@ final class MyLibraryTests: XCTestCase {
 
         // Then
         XCTAssertNotNil(isLuckyNumber)
-        XCTAssert(isLuckyNumber == false)
+        XCTAssert(isLuckyNumber == true)
     }
 
     func testIsNotLuckyBecauseServiceCallFails() async {
@@ -63,7 +63,7 @@ final class MyLibraryTests: XCTestCase {
         let myLibrary = MyLibrary(weatherService: mockWeatherService)
 
         // When
-        let isLuckyNumber = await myLibrary.isLucky(7)
+        let isLuckyNumber = await myLibrary.isLucky(9)
 
         // Then
         XCTAssertNil(isLuckyNumber)
