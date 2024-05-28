@@ -4,12 +4,19 @@ public protocol WeatherService {
     func getTemperature() async throws -> Int
 }
 
-class WeatherServiceImpl: WeatherService {
-    let url = "https://api.openweathermap.org/data/2.5/weather?q=corvallis&units=imperial&appid=<INSERT YOUR API KEY HERE>"
+public class WeatherServiceImpl: WeatherService {
+    private let baseUrl: String
+    private let path = "/data/2.5/weather"
+    
+    public init(baseUrl: String = "https://api.openweathermap.org") {
+        self.baseUrl = baseUrl
+    }
+    
 
-    func getTemperature() async throws -> Int {
+    public func getTemperature() async throws -> Int {
+        let completeURL = (baseUrl + path)
         return try await withCheckedThrowingContinuation { continuation in
-            AF.request(url, method: .get).validate(statusCode: 200..<300).responseDecodable(of: Weather.self) { response in
+            AF.request(completeURL, method: .get).validate(statusCode: 200..<300).responseDecodable(of: Weather.self) { response in
                 switch response.result {
                 case let .success(weather):
                     let temperature = weather.main.temp
@@ -24,7 +31,7 @@ class WeatherServiceImpl: WeatherService {
     }
 }
 
-private struct Weather: Decodable {
+public struct Weather: Decodable {
     let main: Main
 
     struct Main: Decodable {
